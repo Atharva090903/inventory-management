@@ -1,9 +1,9 @@
-Inventory Management System Implementation
+**Inventory Management System Implementation**
 
-Problem Statement:
+**Problem Statement:**
 To implement an inventory management system for an e-commerce store, allowing administrators to add and remove products from inventory. Additionally, the system should support discount coupons, including percentage discounts and maximum discount caps.
 
-Solution Overview:
+**Solution Overview:**
 
 I implemented the inventory management system using Node.js for the backend, and HTML, CSS, and JavaScript for the frontend. The system includes four main APIs:
 
@@ -32,5 +32,6 @@ Full Code Explanation:
 
 Backend code (server.js): Implements API endpoints for inventory management, cart operations, and discount coupon application. Reads and writes data to JSON files.
 Frontend code (index.html, cart.html, style.css, script.js): Provides user interfaces for administrators and customers. Implements form submission, inventory display, cart management, and discount coupon application.
-Conclusion:
+
+**Conclusion:**
 The implemented inventory management system provides a robust solution for managing products, cart operations, and discounts in an e-commerce store. It ensures data integrity, handles edge cases, and provides a seamless user experience for administrators and customers.
