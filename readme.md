@@ -11,6 +11,11 @@ I implemented the inventory management system using Node.js for the backend, and
 - `AddItemToCart(customerId, productId, quantity)`
 - `ApplyDiscountCoupon(cartValue, discountId)`
 
+### Frontend UI:
+![image](https://github.com/Atharva090903/inventory-management/assets/147313928/141ac484-1775-42ce-ac83-9b3fbd0dcaa8)
+
+![image](https://github.com/Atharva090903/inventory-management/assets/147313928/218e5a20-d8db-4ff7-acba-6fceed3bda6c)
+
 ## Implementation Details:
 
 ### Backend (Node.js):
