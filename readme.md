@@ -11,6 +11,8 @@ I implemented the inventory management system using Node.js for the backend, and
 - `AddItemToCart(customerId, productId, quantity)`
 - `ApplyDiscountCoupon(cartValue, discountId)`
 
+API documentation in Postman- https://documenter.getpostman.com/view/24304346/2sA3XMjPM4
+
 ### Frontend UI:
 ![image](https://github.com/Atharva090903/inventory-management/assets/147313928/141ac484-1775-42ce-ac83-9b3fbd0dcaa8)
 
