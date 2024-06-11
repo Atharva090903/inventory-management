@@ -1,0 +1,126 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.container {
+    width: 27%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+/* Form styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    max-width: 400px; /* Set the maximum width of the form */
+    margin: 0 auto; /* Center the form horizontally */
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: calc(100% - 24px); /* Adjust width to account for padding and border */
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #4CAF50;
+    color: white;
+    width: fit-content;
+    align-self: center;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Inventory and cart styles */
+.item {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fdfdfd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item div {
+    flex-grow: 1;
+}
+
+.item button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.item button:hover {
+    background-color: #45a049;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Total price */
+#totalPrice {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: calc(100% - 22px); /* Adjust width based on padding and border */
+}
+
+#discountId {
+    width: calc(100% - 22px);
+    margin-top: 20px;
+}
+#inventory {
+    max-width: 800px; /* Set the maximum width of the inventory section */
+    margin: 20px auto; /* Center the inventory section horizontally */
+    padding: 20px;
+    border: 1px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}

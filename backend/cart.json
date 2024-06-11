@@ -1,0 +1,16 @@
+{
+  "customer1": {
+    "1": {
+      "quantity": 1,
+      "price": "110000"
+    },
+    "2": {
+      "quantity": 1,
+      "price": "80000"
+    },
+    "3": {
+      "quantity": 1,
+      "price": "40000"
+    }
+  }
+}

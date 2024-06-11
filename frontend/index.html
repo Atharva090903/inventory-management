@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Inventory Management</h1>
+        <form id="addItemForm">
+            <h2>Add Item to Inventory</h2>
+            <input type="text" id="productId" placeholder="Product ID" required>
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="number" id="price" placeholder="Price" required>
+            <input type="number" id="quantity" placeholder="Quantity" required>
+            <button type="submit">Add Item</button>
+        </form>
+        <div id="inventory"></div>
+        <a href="/cart">Go to Cart</a>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('addItemForm')) {
+                document.getElementById('addItemForm').addEventListener('submit', addItemToInventory);
+                loadInventory();
+            }
+        });
+
+        async function addItemToInventory(event) {
+            event.preventDefault();
+            const productId = document.getElementById('productId').value;
+            const productName = document.getElementById('productName').value;
+            const price = document.getElementById('price').value;
+            const quantity = document.getElementById('quantity').value;
+
+            const response = await fetch('/api/addItemToInventory', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId, productName, price, quantity })
+            });
+
+            const data = await response.json();
+            console.log('Response from server:', data);
+            loadInventory();
+        }
+
+        async function loadInventory() {
+            const response = await fetch('/api/inventory');
+            const inventory = await response.json();
+            const inventoryDiv = document.getElementById('inventory');
+
+            inventoryDiv.innerHTML = '<h2>Inventory</h2>';
+            for (const [productId, { productName, price, quantity }] of Object.entries(inventory)) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `
+                    <div>
+                        <strong>${productName}</strong><br>
+                        Price: ${price}<br>
+                        Quantity: ${quantity}
+                    </div>
+                `;
+                inventoryDiv.appendChild(itemDiv);
+            }
+        }
+    </script>
+</body>
+</html>

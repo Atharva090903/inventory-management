@@ -1,0 +1,22 @@
+{
+  "1": {
+    "productName": "Mac Book",
+    "price": "110000",
+    "quantity": 2
+  },
+  "2": {
+    "productName": "iphone",
+    "price": "80000",
+    "quantity": 6
+  },
+  "3": {
+    "productName": "ipad",
+    "price": "40000",
+    "quantity": 4
+  },
+  "4": {
+    "productName": "Apple Vision Pro",
+    "price": "300000",
+    "quantity": "5"
+  }
+}

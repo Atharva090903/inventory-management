@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <a href="/">Go to Inventory</a>
+        <div id="inventory"></div>
+        <div id="cart"></div>
+        <input type="text" id="discountId" placeholder="Discount Code">
+        <button onclick="applyDiscount()">Apply Discount</button>
+        <h2>Total: <span id="totalPrice">0</span></h2>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadInventory();
+            loadCart();
+        });
+
+        async function loadInventory() {
+            const response = await fetch('/api/inventory');
+            const inventory = await response.json();
+            const inventoryDiv = document.getElementById('inventory');
+
+            inventoryDiv.innerHTML = '<h2>Inventory</h2>';
+            for (const [productId, { productName, price, quantity }] of Object.entries(inventory)) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `
+                    <div>
+                        <strong>${productName}</strong><br>
+                        Price: ${price}<br>
+                        Quantity: ${quantity}
+                    </div>
+                    <button onclick="addItemToCart('${productId}', ${price})">Add to Cart</button>
+                `;
+                inventoryDiv.appendChild(itemDiv);
+            }
+        }
+
+        async function addItemToCart(productId, price) {
+            const customerId = 'customer1';  // Hardcoded for simplicity
+            const quantity = 1;  // Hardcoded for simplicity
+
+            const response = await fetch('/api/addItemToCart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ customerId, productId, quantity })
+            });
+
+            const data = await response.json();
+            console.log('Response from server:', data);
+            loadCart();
+        }
+
+        async function loadCart() {
+        const customerId = 'customer1';  // Hardcoded for simplicity
+        const responseCart = await fetch('/api/cart');
+        const cart = await responseCart.json();
+        const cartDiv = document.getElementById('cart');
+        const totalPriceSpan = document.getElementById('totalPrice');
+
+        cartDiv.innerHTML = '<h2>Cart</h2>';
+        let totalPrice = 0;
+
+        // Fetch inventory data to get product names
+        const responseInventory = await fetch('/api/inventory');
+        const inventory = await responseInventory.json();
+
+        for (const [productId, { quantity, price }] of Object.entries(cart[customerId] || {})) {
+            if (inventory[productId]) { // Check if inventory data contains information for this productId
+                const productName = inventory[productId].productName; // Get product name from inventory
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `
+                    <div>
+                        <strong>${productName}</strong><br>
+                        Price: ${price}<br>
+                        Quantity: ${quantity}
+                    </div>
+                    <button onclick="removeItemFromCart('${productId}')">Remove</button>
+                `;
+                cartDiv.appendChild(itemDiv);
+                totalPrice += quantity * price;
+            } else {
+                console.error(`Product with ID ${productId} not found in inventory.`);
+            }
+        }
+
+        totalPriceSpan.textContent = totalPrice.toFixed(2);
+    }
+
+
+
+    async function removeItemFromCart(productId) {
+    const customerId = 'customer1';  // Hardcoded for simplicity
+
+    const response = await fetch('/api/removeItemFromCart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customerId, productId })
+    });
+
+    // Check if response is successful (status code 200)
+    if (response.ok) {
+        // Reload the cart after removing item
+        loadCart();
+    } else {
+        // If there's an error in the response, log it
+        console.error('Error removing item from cart:', response.statusText);
+    }
+}
+
+
+async function applyDiscount() {
+    const discountId = document.getElementById('discountId').value;
+    const totalPrice = parseFloat(document.getElementById('totalPrice').textContent);
+
+    const response = await fetch('/api/applyDiscountCoupon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cartValue: totalPrice, discountId })
+    });
+
+    const data = await response.json();
+    console.log('Response from server:', data);
+    const { discountedPrice } = data;
+    document.getElementById('totalPrice').textContent = discountedPrice;
+}
+
+    </script>
+</body>
+</html>

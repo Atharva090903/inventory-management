@@ -1,0 +1,6 @@
+{
+    "DISCOUNT20": {
+        "discountPercentage": 20,
+        "maxDiscount": 150
+    }
+}
